@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Taxes Fucker</title>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/d3/d3.min.js"></script>
+        <script src="bower_components/nvd3/build/nv.d3.js"></script> <!-- or use another assembly -->
+        <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+
+        <script src="app/app.js"></script>
+        <script src="app/taxes/taxes.controller.js"></script>
+        <script src="app/taxes/taxes.service.js"></script>
+        <script src="app/budget/budget.service.js"></script>
+    </head>
+    <body ng-app="taxes" ng-controller="taxController">
+        <input type="number" ng-model="income" name="inputName">
+
+        <select ng-model="filling_status" ng-options="x for x in filling_statuses"></select>
+
+        <div><br></div>
+        <div>
+            <div>
+                <button ng-click="income = 25000; filling_status = 'Married'">Poor</button>
+                <button ng-click="income = 50000; filling_status = 'Married'">Lower Middle</button>
+                <button ng-click="income = 75000; filling_status = 'Married'">Middle</button>
+                <button ng-click="income = 150000; filling_status = 'Married'">Upper Middle</button>
+                <button ng-click="income = 350000; filling_status = 'Married'">Rich</button>
+            </div>
+            <div>
+                <ul class="example-animate-container">
+                    <li class="animate-repeat" ng-repeat="agency in data">
+                        {{agency.name}}: ${{agency.value | currency:''}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <nvd3 options="options" data="data" config="{deepWatchDataDepth: 0}"></nvd3>
+    </body>
+</html>
